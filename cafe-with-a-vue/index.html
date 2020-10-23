@@ -17,19 +17,40 @@
 				est difficile de s'arrêter.
 			</p>
 
-			<section class="menu">
+			<section class="simpleMenu">
 				<h2>Menu</h2>
-				<div class="menu-item">
+				<div class="simpleMenu-item">
+					 
 					<img
-						class="menu-item__image"
+					      <a v-bind:href="item.source">{{ item.name }}</a>
+						class="simpleMenu-item__image"
 						src="https://via.placeholder.com/300x150"
-						alt=""
+						alt="{{ item.name }}"
 					/>
 					<div>
-						<h3>Nom de l'article</h3>
-						<p>En stock</p>
-						<p>En rupture de stock</p>
-						<div>
+				           <ul>
+                                               <li v-for="item in simpleMenu">
+						   <a v-bind:href="item.url">{{ item.name }} : {{ item.image }} : {{ item.quantity }}</a>
+                                               </li>
+                                           </ul>
+					<script>
+						function testStock(instock) {
+                                                let result;
+                                                if (instock > 0) {
+                                                result = 'true';
+                                               } else if(instock == 0 {
+                                                result = 'false';
+                                                 }
+                                               return result;
+                                                }
+					</script>
+                                          
+						<h3>Nom de l'article : {{item.name}}</h3>
+						<h2> Articles disponibles :<h2> {{item.quantity}}
+						<p> v-if instock === true : message ==="article en stock"</p>
+						    v-else instock === false : message ==="cet article est en rupture de stock"
+						<p>En rupture de stock: </p>{{item.instock}}
+					        <div>
 							<label for="add-item-quantity">Quantité :</label>
 							<input id="add-item-quantity" type="number" />
 							<button>Ajouter au panier d'achat</button>
@@ -39,6 +60,7 @@
 			</section>
 
 			<aside class="shopping-cart">
+				
 				<h2>Panier d'achat: 0 articles</h2>
 			</aside>
 
@@ -98,7 +120,12 @@
 					]
 				},
 				computed: {
+					name(){
+						return this.inStock
+					}
 					copyright() {
+						
+						
 						const currentYear = new Date().getFullYear()
 
 						return `Copyright ${this.restaurantName} ${currentYear}`
