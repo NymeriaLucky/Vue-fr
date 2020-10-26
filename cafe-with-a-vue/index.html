@@ -17,29 +17,58 @@
 				est difficile de s'arrêter.
 			</p>
 
-			<section class="menu">
+			<section class="simpleMenu">
 				<h2>Menu</h2>
-				<div class="menu-item">
+				<div class="simpleMenu-item">
+				<div id ="app">
+
 					<img
-						class="menu-item__image"
+					    <a v-bind:href="item__image">{{ item.name }}</a>
+						class="simpleMenu-item__image"
 						src="https://via.placeholder.com/300x150"
-						alt=""
+						alt="{{ item.name }}"
 					/>
+
+				<div>
+				          <ul>
+                           <li v-for="item in simpleMenu">
+						   <a v-bind:href="item.url">{{ item.name }} : {{ item.image }} : {{ item.quantity }}</a>
+                           </li>
+                           </ul>
+					<script>
+						function testStock(instock) {
+                                                let result;
+                                                if (instock > 0) {
+                                                result = 'true';
+                                               } else if(instock == 0 {
+                                                result = 'false';
+                                                 }
+                                               return result;
+                                                }
+					</script>
+                    <div id="app"                    
+						<h3>Nom de l'article : {{item.name}}</h3>
+						<h2> Articles disponibles :{{item.quantity}}</h2> 
+						<p v-if = "items.inStock >=1 = true">Article en stock</p>
+						<p v-else = "item.inStock == 0 = false">
+						 En rupture de stock:</p>{{item.inStock}}
 					<div>
-						<h3>Nom de l'article</h3>
-						<p>En stock</p>
-						<p>En rupture de stock</p>
-						<div>
 							<label for="add-item-quantity">Quantité :</label>
-							<input id="add-item-quantity" type="number" />
-							<button>Ajouter au panier d'achat</button>
+							<input id="add-item-quantity" type="number" v-model="quantity"/>
+					    <div id="app">	
+							<button v-on:click="alert('addToShoppingCart')">Ajouter au panier d'achat ici !</button>
 						</div>
 					</div>
 				</div>
 			</section>
 
 			<aside class="shopping-cart">
-				<h2>Panier d'achat: 0 articles</h2>
+				<ul>
+					<li v-for ="item in shopping-cart">
+						{{item.name}} : {{item.image}} : {{item.inStock}} : {{item.quantity}}
+					</li> 
+				</ul>
+				<h2>Panier d'achat: 0 articles{{addToShoppingCart}}</h2>
 			</aside>
 
 			<h2>Contactez nous</h2>
@@ -98,13 +127,31 @@
 					]
 				},
 				computed: {
+					addToShoppingCart() {
+						let total = 0
+
+						this.shopping-cart.forEach(item =>{
+							total += item.instock
+						})
+						return total
+					    },
+				    },
+			    }
+
+					name(){
+						return this.inStock
+					}
+                 methods: 
 					copyright() {
+							
 						const currentYear = new Date().getFullYear()
 
 						return `Copyright ${this.restaurantName} ${currentYear}`
 					}
 				}
+
 			})
 		</script>
 	</body>
 </html>
+
